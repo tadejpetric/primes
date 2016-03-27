@@ -1,5 +1,5 @@
 //very basic, just searches for mersenne primes. unoptimised. works
-//praötevila oblike 2^n -1
+//pra≈°tevila oblike 2^n -1
 #include <iostream>
 #include <fstream>
 #include <cmath> //pow(), sqrt()
