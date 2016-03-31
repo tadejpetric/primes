@@ -1,0 +1,86 @@
+//a^p-a = n; n%p=0; p is prime
+#include <iostream>
+using namespace std;
+
+void interval_baz();
+void interval_pot();
+
+
+int main()
+{
+	bool check;
+	short stev;
+	cout << "a^p-1; je deljivo z a. A je naravno stevilo, p potenca (prastevilo da izrek drzi)" << endl;
+	do{
+		cout << "Vnesi 1 za interval baz, 2 za interval potenco: ";
+		cin >> stev;
+		switch (stev)
+		{
+		case 1: interval_baz(); break;
+		case 2:	interval_pot(); break;
+		default: cout << "ni veljavno stevilo" << endl;
+		}
+		cout << "vpisi 1 za se enkrat, 0 za konec: ";
+		cin >> check;
+	} while (check == true);
+	return 0;
+}
+
+void interval_baz()
+{
+	unsigned long long int up, down, sum = 1, power;
+	do {
+		cout << "Vnesi spodnjo bazo (vkljucno z): ";
+		cin >> down;
+		cout << "Vnesi zgornjo bazo (vkljucno z): ";
+		cin >> up;
+		if (down > up)
+			cout << "Spodnja visja kot zgornja! Ponovno vnesi podatke" << endl;
+	} while (down > up);
+	cout << "Vnesi potenco: ";
+	cin >> power;
+	for (unsigned long long int i = down; i <= up; i++)
+	{
+		for (unsigned long long int j = 0; j < power; j++)
+		{
+			sum *= i;
+		}
+		sum -= i;
+		cout << i << "^" << power << " - " << i << " = " << sum << "; " << sum << "%" << power << " = " << sum % power << ": ";
+		if (sum%power == 0)
+			cout << "Stevilo " << power << " je morda prastevilo" << endl;
+		else
+			cout << "Stevilo " << power << " zagotovo ni prastevilo" << endl;
+		sum = 1;
+	}
+}
+
+void interval_pot()
+{
+	unsigned long long int up, down, sum = 1, base;
+	do {
+		cout << "Vnesi spodnjo potenco (vkljucno z): ";
+		cin >> down;
+		cout << "Vnesi zgornjo potenco (vkljucno z): ";
+		cin >> up;
+		if (down > up)
+			cout << "Spodnja visja kot zgornja! Ponovno vnesi podatke" << endl;
+	} while (down > up);
+	cout << "Vnesi bazo: ";
+	cin >> base;
+	for (unsigned long long int i = down; i <= up; i++)
+	{
+		for (unsigned long long int j = 0; j < i; j++)
+		{
+			sum *= base;
+		}
+		sum -= base;
+		cout << base << "^" << i << " - " << base << " = " << sum << "; " << sum << "%" << i << " = " << sum % i << ": ";
+		if (sum%i == 0)
+			cout << "Stevilo " << i << " je morda prastevilo" << endl;
+		else
+			cout << "Stevilo " << i << " zagotovo ni prastevilo" << endl;
+		sum = 1;
+	}
+
+}
