@@ -1,0 +1,95 @@
+#include <math.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <stdlib.h>
+
+using namespace std;
+
+int read_from_file();
+int IS_prime(int num);		// Returns '0' if its prime, and a '1' if its not prime.
+void vnos();
+
+int main(){
+	vnos();
+	return 0;                                   // Vrni 0 za uspešen zaključek
+}
+
+void vnos(){
+	char i;
+	int vnos = 0;
+	int prastevilo = 0;
+	do {
+		cout << "Vnos stevila(v)/Branje iz datoteke(b)/Izhod(e)" << endl;
+		cin >> i;
+		switch (i){
+		case 'v':
+			cout << "Vnesi preverjano stevilo: ";
+			cin >> vnos;                                  // Vnos Preverjanega Števila
+			prastevilo = IS_prime(vnos);                // Pridobitev vrednosti, ki jo vrne funkcija "IS_prime"
+			//cout<<prastevilo;                         // DEBUG: izpis spremenljivke "prastevilo"
+			if (prastevilo == 1){                        // Izpis Praštevilo/Ni praštevilo
+				cout << vnos << " je prastevilo" << endl;    // -||-
+			}
+			else{                                      // -||-
+				cout << vnos << " ni prastevilo" << endl;    // -||-
+			}                                           // -||-
+			break;
+		case 'b':
+			read_from_file();
+			//cout<<"Not implemented yet";
+			break;
+		} 
+		cout << "------------------------------------------" << endl;
+	}while (i != 'e');
+
+}
+
+int IS_prime(int num){
+	int isprime = 1;                            // Najprej predvidevamo, da je število Praštevilo
+	int tmp = num - 1;                            // Ne smemo preverjati deljivosti števila s samim sabo
+	for (int i = num; i >1; i--){                // Preverjanje, če je "num" deljivo s katerimkoli številom do vključno z 2.
+		if (num % tmp == 0 && tmp != 1){         // -||-
+			//cout<<"tmp: "<<tmp<<endl;         // DEBUG: Možnost izpisa deljiteljev
+			isprime = 0;                        // Spreminjanje vrednosti, na "NI PRAŠTEVILO"
+		}                                       // Konec IF stavka
+		tmp--;                                  // Zmanjšamo število, s katerim preverjamo za deljivost, da dobimo vsa števila do 0
+	}                                           // Konec FOR loopa
+	return isprime;                             // Vrnitev statusa praštevila
+}
+
+int read_from_file(){
+	int isprime = 1;                            // Najprej predvidevamo, da je število Praštevilo
+	int num;
+	int tmp;                                    // Ne smemo preverjati deljivosti števila s samim sabo
+	string line;
+	ifstream myfile("stevila.txt");
+	if (myfile.is_open()){
+		while (getline(myfile, line, ' ')){
+			isprime = 1;
+			num = atoi(line.c_str());
+			tmp = num - 1;
+			//cout << num << '\n';
+			for (int i = num; i >1; i--){                // Preverjanje, če je "num" deljivo s katerimkoli številom do vključno z 2.
+				if (num % tmp == 0 && tmp != 1){         // -||-
+					//cout<<"i: "<<i<<endl;             // DEBUG: Možnost izpisa deljiteljev
+					isprime = 0;                        // Spreminjanje vrednosti, na "NI PRAŠTEVILO"
+				}                                       // Konec IF stavka
+				tmp--;                                  // Zmanjšamo število, s katerim preverjamo za deljivost, da dobimo vsa števila do 0
+			}
+			switch (isprime){
+			case 0:
+				cout << num << " ni praštevilo" << endl;
+				break;
+			case 1:
+				cout << num << " je praštevilo" << endl;
+				break;
+			}
+		}                                               // Konec FOR loopa*/
+		myfile.close();
+	}
+	else
+		cout << "Unable to open file";
+
+	return 0;
+}
